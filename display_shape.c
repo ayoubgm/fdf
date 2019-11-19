@@ -6,7 +6,7 @@
 /*   By: gayoub <gayoub@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 23:44:14 by gayoub            #+#    #+#             */
-/*   Updated: 2019/11/19 04:09:57 by gayoub           ###   ########.fr       */
+/*   Updated: 2019/11/19 19:09:21 by gayoub           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void		slope_less_1(t_home *home, t_point p0, t_point p1)
 {
 	while (p0.y != p1.y)
 	{
-		put_pixel_img(home, p0.x, p0.y, RED);
+		put_pixel_img(home, p0.x, p0.y, home->color);
 		p0.y += home->stpy;
 		home->am += home->dx;
 		if(home->am >= home->dy)
@@ -36,7 +36,7 @@ static void		slope_greater_1(t_home *home, t_point p0, t_point p1)
 {
 	while (p0.x != p1.x)
 	{
-		put_pixel_img(home, p0.x, p0.y, RED);
+		put_pixel_img(home, p0.x, p0.y, home->color);
 		p0.x += home->stpx;
 		home->am += home->dy;
 		if(home->am >= home->dx)
@@ -74,27 +74,13 @@ void        draw_shape(t_home *home)
 		j = 0;
 		while (j < home->map->width)
 		{
-			if (j + 1 < home->map->width)
+			if (j + 1 < home->map->width && home->map->point[i][j + 1].x < WIDTH_IMG && home->map->point[i][j + 1].y < HEIGHT_IMG)
 				draw_line(home,home->map->point[i][j],home->map->point[i][j + 1]);
-			if (i + 1 < home->map->height)
+			if (i + 1 < home->map->height && home->map->point[i + 1][j].x < WIDTH_IMG && home->map->point[i + 1][j].y < HEIGHT_IMG)
 				draw_line(home,home->map->point[i][j],home->map->point[i + 1][j]);
 			j++;
 		}
 		i++;
 	}
-
-	// int i = 0, j;
-	// while (i < HEIGHT_IMG)
-	// {
-	// 	j = 0;
-	// 	while (j< WIDTH_IMG)
-	// 	{
-	// 		if (j + 1 < home->map->width)
-	// 			draw_line(home, home->map->point[i][j], home->map->point[i][j + 1]);
-	// 		if (i + 1 < home->map->height)
-	// 			draw_line(home, home->map->point[i][j], home->map->point[i + 1][j]);
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
+	// put_pixel_img(home, 500, 255, RED); 
 }

@@ -6,7 +6,7 @@
 /*   By: gayoub <gayoub@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:17:24 by gayoub            #+#    #+#             */
-/*   Updated: 2019/11/19 03:48:18 by gayoub           ###   ########.fr       */
+/*   Updated: 2019/11/19 19:06:33 by gayoub           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void			put_area_of_pixel(t_home *home)
 	{
 		x = 0;
 		while (x++ <= 2560)
-			mlx_pixel_put(home->mlx_ptr, home->win_ptr, x, y, 38348);
+			mlx_pixel_put(home->mlx_ptr, home->win_ptr, x, y, home->color);
 			
 	}
 	y = 1295;
@@ -30,7 +30,7 @@ static void			put_area_of_pixel(t_home *home)
 	{
 		x = 0;
 		while (x++ <= 2560)
-			mlx_pixel_put(home->mlx_ptr, home->win_ptr, x, y, 38348);
+			mlx_pixel_put(home->mlx_ptr, home->win_ptr, x, y, home->color);
 	}
 }
 
@@ -43,21 +43,21 @@ static void				display_menu_win(t_home *home)
 	mlx_string_put(home->mlx_ptr,
 							home->win_ptr, 1240, 50, 16777215, "FDF 1337");
 	mlx_string_put(home->mlx_ptr,
-							home->win_ptr, 80, 300, 38348, "Zoom in      : +");
+							home->win_ptr, 80, 300, home->color, "Zoom in      : +");
 	mlx_string_put(home->mlx_ptr,
-							home->win_ptr, 80, 330, 38348, "Zoom out     : -");
+							home->win_ptr, 80, 330, home->color, "Zoom out     : -");
 	mlx_string_put(home->mlx_ptr,
-							home->win_ptr, 80, 360, 38348, "Altitude +   : up");
+							home->win_ptr, 80, 360, home->color, "Altitude +   : up");
 	mlx_string_put(home->mlx_ptr, home->win_ptr,
-							80, 390, 38348, "Altitude -   : down");
+							80, 390, home->color, "Altitude -   : down");
 	mlx_string_put(home->mlx_ptr, home->win_ptr,
-							2240, 300, 38348, "Scroll to zoom  : +");
+							2240, 300, home->color, "Scroll to zoom  : +");
 	mlx_string_put(home->mlx_ptr, home->win_ptr,
-							2240, 330, 38348, "Move            : W A S D");
+							2240, 330, home->color, "Move            : W A S D");
 	mlx_string_put(home->mlx_ptr, home->win_ptr,
-							2240, 360, 38348, "Projection ISO  : I");
+							2240, 360, home->color, "Projection ISO  : I");
 	mlx_string_put(home->mlx_ptr, home->win_ptr,
-							2240, 390, 38348, "Projection PRLL : P");
+							2240, 390, home->color, "Projection PRLL : P");
 	
 }
 

@@ -6,34 +6,11 @@
 /*   By: gayoub <gayoub@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 21:13:30 by gayoub            #+#    #+#             */
-/*   Updated: 2019/11/19 03:46:15 by gayoub           ###   ########.fr       */
+/*   Updated: 2019/11/19 23:32:58 by gayoub           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-int		check_fd(char *file)
-{
-	int fd1;
-	int fd2;
-	int	r;
-	char buff[BUFFSIZE];
-
-	if ((fd1 = open(file, O_RDONLY)) < 0 ||  (fd2 = open(file, O_RDONLY)) < 0)
-	{
-		(errno == 2) ? ft_putstr("No file") : printf("Failed to open");
-		ft_putstr(file);
-		ft_putstr(".\n");
-		return(0);
-	}
-	if ((fd1 = open(file, O_RDONLY)))
-	{
-		if ((r = read(fd1, buff, BUFFSIZE)) == 0 || buff[0] == '\n')
-			error("No data found.");
-		close(fd1);	
-	}
-	return (fd2);
-}
 
 static	void		init_win_img(t_home *home)
 {
@@ -51,9 +28,36 @@ static t_home		*init(t_home *home)
 {
 	if (!(home = (t_home*)malloc(sizeof(t_home))))
 		return (NULL);
+	home->color = DRK_BLUE;
 	if (!(home->map = (t_map*)malloc(sizeof(t_map))))
 		return (NULL);
+	if (!(home->map->zoom = (t_zoom*)malloc(sizeof(t_zoom))))
+		return (NULL);
 	return (home);
+}
+
+int		check_fd(char *line)
+{
+	int		r;
+	int fd1;
+	int fd2;
+	char buff[BUFFSIZE];
+
+	if ((fd1 = open(line, O_RDONLY)) < 0 ||  (fd2 = open(line, O_RDONLY)) < 0)
+	{
+		(errno == 2) ? printf("No file %s.\n", line) : printf("Failed to open %s.\n", line);
+		return(0);
+	}
+	if ((fd1 = open(line, O_RDONLY)))
+	{
+		if ((r = read(fd1, buff, BUFFSIZE)) == 0 || buff[0] == '\n')
+		{
+			printf("No data found.\n");
+			return (0);
+		}
+		close(fd1);	
+	}
+	return (fd2);
 }
 
 int		main(int ac, char **av)
@@ -64,14 +68,14 @@ int		main(int ac, char **av)
 
 	home = NULL;
 	if (ac != 2)
-		error("Usage : ./fdf <filename>\n");
+		error("Usage : ./fdf <filename>\n");;
+	home = init(home);
 	if (!(fd = check_fd(av[1])))
 		exit(0);
-	home = init(home);
 	if (!(home))
 		exit(0);
 	if (!(r = read_file_stock(fd, home->map)))
-		error("Error in data.");
+		error("Error in data.\n");
 	else if (r == 2)
 		error("Found wrong line length. Exiting.\n");
 	init_win_img(home);

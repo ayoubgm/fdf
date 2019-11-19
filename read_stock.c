@@ -6,7 +6,7 @@
 /*   By: gayoub <gayoub@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 23:49:17 by gayoub            #+#    #+#             */
-/*   Updated: 2019/11/19 04:01:28 by gayoub           ###   ########.fr       */
+/*   Updated: 2019/11/19 23:33:01 by gayoub           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int			convert_stock(t_map *map)
 			return (0);
 		while (map->prelines[i][++j])
 		{
-			map->point[i][j].x = (j + 50)*20;
-			map->point[i][j].y = (i) * 20;
-			map->point[i][j].z = ft_atoi(map->prelines[i][j]) + map->point[i][j].offst;
+			map->point[i][j].x = (j + 40) * 20;
+			map->point[i][j].y = (i + 1) * 20;
+			map->point[i][j].z = ft_atoi(map->prelines[i][j]) * 20;
 			iso(&map->point[i][j]);
 		}
 	}
@@ -43,22 +43,8 @@ int				check_lines(char *lines)
 	i = -1;
 	while (lines[++i])
 	{
-		while (lines[i] == ' ' || lines[i] == '-')
+		while (lines[i] == ' ' || lines[i] == '-' || lines[i] == ',')
 			i++;
-		if (lines[i] == ',')
-		{
-			i++;
-			while(lines[i] != ' ')
-			{
-				if (lines[i] == 'x')
-					i++;
-				if (!ft_isxdigit(lines[i]))
-					return (0);
-				i++;
-			}
-			while (lines[i] == ' ')
-				i++;
-		}
 		if (!ft_isdigit(lines[i]) || !(i = ft_strlen(lines) - 1))
 			return (0);
 	}
@@ -123,6 +109,7 @@ int		read_file_stock(int fd2, t_map *map)
 	all = ft_strnew(0);
 	while ((rd = read(fd2, buff, BUFFSIZE)))
 	{
+
 		buff[rd] = '\0';
 		tmp = ft_strjoin(all, buff);
 		ft_strdel(&all);
